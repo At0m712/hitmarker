@@ -1,9 +1,29 @@
-# HitMarker
+![HitMarker Logo](https://i.imgur.com/1sxTyjY.png)
 
-## Setup
+<br> 
 
-For setup instructions, please see the [Fabric Documentation page](https://docs.fabricmc.net/develop/getting-started/creating-a-project#setting-up) related to the IDE that you are using.
+### HitMarker Enchanced (HME) is an HitMarker indicator when you hit a mob or player with throwable items (Arrow, Egg, Trident).
 
-## License
 
-This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+<br>
+
+![Video demonstration of the mod]()
+
+<br> 
+
+![Configurations Logo](https://i.imgur.com/vZ4ypIX.png)
+
+<br>
+
+HME come with 3 different HitMarker style and you can disable the Sound, use commands below to change the style !
+
+![HitMarker styles](https://i.imgur.com/mKRvC3Q.png)
+
++ ``` /HitMarker Style 1 ```
++ ``` /HitMarker Style 2 ```
++ ``` /HitMarker Style 3 ```
++ ``` /HitMarker Sound ```
+
+---
+
+## Feel free to add this mod to your ModPacks !
