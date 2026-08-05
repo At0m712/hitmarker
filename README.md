@@ -15,15 +15,14 @@
 
 <br>
 
-HME come with 3 different HitMarker style and 2 differents sounds, use commands below to change the style !
+HME come with 3 different HitMarker style and you can disable the Sound, use commands below to change the style !
 
 ![HitMarker styles](https://i.imgur.com/mKRvC3Q.png)
 
 + ``` /HitMarker_Style_1 ```
 + ``` /HitMarker_Style_2 ```
 + ``` /HitMarker_Style_3 ```
-+ ``` /HitMarker_Sound_1 ```
-+ ``` /HitMarker_Sounf_2 ```
++ ``` /HitMarker_Sound ```
 
 ---
 
