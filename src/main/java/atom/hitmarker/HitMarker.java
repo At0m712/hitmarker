@@ -1,8 +1,9 @@
 package atom.hitmarker;
 
+import atom.hitmarker.sounds.ModSounds;
 import net.fabricmc.api.ModInitializer;
 
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,9 +14,10 @@ public class HitMarker implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		ModSounds.registerSounds();
 	}
 
-	public static Identifier id(String path) {
-		return Identifier.of(MOD_ID, path);
+	public static ResourceLocation id(String path) {
+		return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
 	}
 }

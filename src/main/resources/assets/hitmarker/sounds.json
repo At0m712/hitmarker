@@ -1,0 +1,15 @@
+{
+  "hit_sound_1": {
+    "subtitle": "sounds.hitmarker.hit_sound_1",
+    "sounds": [
+      "hitmarker:hit_sound_1"
+    ]
+  },
+
+  "hit_sound_2": {
+    "subtitle": "sounds.hitmarker.hit_sound_2",
+    "sounds": [
+      "hitmarker:hit_sound_2"
+    ]
+  }
+}
