@@ -22,7 +22,7 @@ HME come with 3 different HitMarker style and allows you to toggle the hit sound
 + ` /HitMarker Style 1 `
 + ` /HitMarker Style 2 `
 + ` /HitMarker Style 3 `
-+ ` /HitMarker Sound true/false` 
++ `/HitMarker Sound true/false` 
 
 ---
 
