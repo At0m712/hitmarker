@@ -1,4 +1,4 @@
-![HitMarker Logo](https://i.imgur.com/1sxTyjY.png)
+![HitMarker Logo](https://i.imgur.com/dBuQ2xz.png)
 
 <br> 
 
