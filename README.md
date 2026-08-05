@@ -19,10 +19,10 @@ HME come with 3 different HitMarker style and you can disable the Sound, use com
 
 ![HitMarker styles](https://i.imgur.com/mKRvC3Q.png)
 
-+ ``` /HitMarker_Style_1 ```
-+ ``` /HitMarker_Style_2 ```
-+ ``` /HitMarker_Style_3 ```
-+ ``` /HitMarker_Sound ```
++ ``` /HitMarker Style 1 ```
++ ``` /HitMarker Style 2 ```
++ ``` /HitMarker Style 3 ```
++ ``` /HitMarker Sound ```
 
 ---
 
