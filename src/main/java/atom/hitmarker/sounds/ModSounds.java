@@ -3,7 +3,7 @@
     import atom.hitmarker.HitMarker;
     import net.minecraft.core.Registry;
     import net.minecraft.core.registries.BuiltInRegistries;
-    import net.minecraft.resources.ResourceLocation;
+    import net.minecraft.resources.Identifier;
     import net.minecraft.sounds.SoundEvent;
 
     public class ModSounds {
@@ -12,7 +12,7 @@
         public static final SoundEvent HIT_SOUND_2 = registerSoundEvent("hit_sound_2");
 
         private static SoundEvent registerSoundEvent(String name) {
-            ResourceLocation id = HitMarker.id(name);
+            Identifier id = HitMarker.id(name);
             return Registry.register(BuiltInRegistries.SOUND_EVENT, id, SoundEvent.createVariableRangeEvent(id));
         }
 

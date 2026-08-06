@@ -4,7 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import com.mojang.blaze3d.pipeline.RenderPipeline;
 
@@ -21,23 +21,23 @@ public abstract class GuiMixin {
 
     public final Minecraft minecraft = Minecraft.getInstance();
 
-    private static final ResourceLocation HIT_SPRITE_1 = ResourceLocation.fromNamespaceAndPath("hitmarker", "crosshair/hit1");
-    private static final ResourceLocation HIT_SPRITE_2 = ResourceLocation.fromNamespaceAndPath("hitmarker", "crosshair/hit2");
-    private static final ResourceLocation HIT_SPRITE_3 = ResourceLocation.fromNamespaceAndPath("hitmarker", "crosshair/hit3");
-    private static final ResourceLocation CROSSHAIR_SPRITE = ResourceLocation.withDefaultNamespace("hud/crosshair");
+    private static final Identifier HIT_SPRITE_1 = Identifier.fromNamespaceAndPath("hitmarker", "crosshair/hit1");
+    private static final Identifier HIT_SPRITE_2 = Identifier.fromNamespaceAndPath("hitmarker", "crosshair/hit2");
+    private static final Identifier HIT_SPRITE_3 = Identifier.fromNamespaceAndPath("hitmarker", "crosshair/hit3");
+    private static final Identifier CROSSHAIR_SPRITE = Identifier.withDefaultNamespace("hud/crosshair");
 
     @Redirect(
             method = "renderCrosshair",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/ResourceLocation;IIII)V")
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V")
     )
-    private void redirectCrosshairBlit(GuiGraphics instance, RenderPipeline renderPipeline, ResourceLocation sprite, int x, int y, int width, int height) {
+    private void redirectCrosshairBlit(GuiGraphics instance, RenderPipeline renderPipeline, Identifier sprite, int x, int y, int width, int height) {
 
         instance.blitSprite(renderPipeline, sprite, x, y, width, height);
 
         if (sprite.equals(CROSSHAIR_SPRITE)) {
             if (HitMarkerClient.projectileHitTimer > 0.0F) {
 
-                ResourceLocation spriteToUse = HIT_SPRITE_1;
+                Identifier spriteToUse = HIT_SPRITE_1;
                 if (ModConfig.crosshairStyle == 2) spriteToUse = HIT_SPRITE_2;
                 if (ModConfig.crosshairStyle == 3) spriteToUse = HIT_SPRITE_3;
 
