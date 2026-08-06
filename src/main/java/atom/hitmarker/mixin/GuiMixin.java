@@ -1,16 +1,12 @@
 package atom.hitmarker.mixin;
 
-import java.util.function.Function;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.ResourceLocation;
 
-
-import com.mojang.blaze3d.opengl.GlStateManager;
-import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.pipeline.RenderPipeline;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -32,12 +28,11 @@ public abstract class GuiMixin {
 
     @Redirect(
             method = "renderCrosshair",
-
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Ljava/util/function/Function;Lnet/minecraft/resources/ResourceLocation;IIII)V")
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/ResourceLocation;IIII)V")
     )
-    private void redirectCrosshairBlit(GuiGraphics instance,Function<ResourceLocation, RenderType> renderType, ResourceLocation sprite, int x, int y, int width, int height) {
+    private void redirectCrosshairBlit(GuiGraphics instance, RenderPipeline renderPipeline, ResourceLocation sprite, int x, int y, int width, int height) {
 
-        instance.blitSprite(renderType, sprite, x, y, width, height);
+        instance.blitSprite(renderPipeline, sprite, x, y, width, height);
 
         if (sprite.equals(CROSSHAIR_SPRITE)) {
             if (HitMarkerClient.projectileHitTimer > 0.0F) {
@@ -48,7 +43,7 @@ public abstract class GuiMixin {
 
                 int color = HitMarkerClient.isKillIndicator ? 0xFFFF0000 : 0xFFFFFFFF;
 
-                instance.blitSprite(RenderType::guiTextured, spriteToUse, x, y, width, height,color);
+                instance.blitSprite(RenderPipelines.GUI_TEXTURED, spriteToUse, x, y, width, height, color);
             }
         }
     }
