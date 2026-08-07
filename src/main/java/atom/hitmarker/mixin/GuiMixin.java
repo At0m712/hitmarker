@@ -2,7 +2,7 @@ package atom.hitmarker.mixin;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.Identifier;
 
@@ -30,7 +30,7 @@ public abstract class GuiMixin {
             method = "renderCrosshair",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V")
     )
-    private void redirectCrosshairBlit(GuiGraphics instance, RenderPipeline renderPipeline, Identifier sprite, int x, int y, int width, int height) {
+    private void redirectCrosshairBlit(GuiGraphicsExtractor instance, RenderPipeline renderPipeline, Identifier sprite, int x, int y, int width, int height) {
 
         instance.blitSprite(renderPipeline, sprite, x, y, width, height);
 

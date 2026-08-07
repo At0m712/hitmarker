@@ -6,7 +6,6 @@
 		"ProjectileMixin"
 	],
 	"client": [
-		"GuiMixin",
 		"ProjectileMixin"
 	],
 	"injectors": {

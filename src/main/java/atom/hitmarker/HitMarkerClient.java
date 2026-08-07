@@ -4,12 +4,14 @@ import atom.hitmarker.sounds.ModSounds;
 import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommands;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.LivingEntity;
 
 public class HitMarkerClient implements ClientModInitializer {
@@ -27,11 +29,11 @@ public class HitMarkerClient implements ClientModInitializer {
     public void onInitializeClient() {
 
         ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
-            dispatcher.register(ClientCommandManager.literal("HitMarker")
+            dispatcher.register(ClientCommands.literal("HitMarker")
 
 
-                    .then(ClientCommandManager.literal("Sound")
-                            .then(ClientCommandManager.argument("enabled", BoolArgumentType.bool())
+                    .then(ClientCommands.literal("Sound")
+                            .then(ClientCommands.argument("enabled", BoolArgumentType.bool())
                                     .executes(context -> {
                                         boolean isEnabled = BoolArgumentType.getBool(context, "enabled");
                                         ModConfig.playSound = isEnabled;
@@ -43,8 +45,8 @@ public class HitMarkerClient implements ClientModInitializer {
                     )
 
 
-                    .then(ClientCommandManager.literal("Style")
-                            .then(ClientCommandManager.argument("type", IntegerArgumentType.integer(1, 3))
+                    .then(ClientCommands.literal("Style")
+                            .then(ClientCommands.argument("type", IntegerArgumentType.integer(1, 3))
                                     .executes(context -> {
                                         int style = IntegerArgumentType.getInteger(context, "type");
                                         ModConfig.crosshairStyle = style;
@@ -57,14 +59,20 @@ public class HitMarkerClient implements ClientModInitializer {
             );
         });
 
-        HudRenderCallback.EVENT.register((drawContext, tickCounter) -> {
-            float deltaTime = tickCounter.getGameTimeDeltaTicks() * 0.05f;
-            if (projectileHitTimer > 0) {
-                projectileHitTimer -= deltaTime;
-            } else {
-                lastHitEntity = null;
-            }
-        });
+        HudElementRegistry.attachElementBefore(
+                VanillaHudElements.CHAT,
+                Identifier.fromNamespaceAndPath("votre_mod_id", "projectile_hit_timer"),
+                (graphics, tickCounter) -> {
+                    // tickCounter est désormais une instance de DeltaTracker
+                    float deltaTime = tickCounter.getGameTimeDeltaPartialTick(false) * 0.05f;
+
+                    if (projectileHitTimer > 0) {
+                        projectileHitTimer -= deltaTime;
+                    } else {
+                        lastHitEntity = null;
+                    }
+                }
+        );
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (projectileHitTimer > 0 && lastHitEntity != null) {

@@ -1,6 +1,7 @@
 plugins {
-	id 'net.fabricmc.fabric-loom-remap' version "${loom_version}"
+	id 'net.fabricmc.fabric-loom' version "${loom_version}"
 	id 'maven-publish'
+	id "me.modmuss50.mod-publish-plugin" version "2.0.0"
 }
 
 version = project.mod_version
@@ -23,11 +24,11 @@ fabricApi {
 dependencies {
 	// To change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings loom.officialMojangMappings()
-	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+
+	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
 }
 
 processResources {
@@ -40,7 +41,7 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
-	it.options.release = 21
+	it.options.release = 25
 }
 
 java {
@@ -49,8 +50,10 @@ java {
 	// If you remove this line, sources will not be generated.
 	withSourcesJar()
 
-	sourceCompatibility = JavaVersion.VERSION_21
-	targetCompatibility = JavaVersion.VERSION_21
+	// L'utilisation de toolchain force Gradle à utiliser Java 25, même s'il doit le télécharger.
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(25)
+	}
 }
 
 jar {
@@ -76,5 +79,43 @@ publishing {
 		// Notice: This block does NOT have the same function as the block in the top level.
 		// The repositories here will be used for publishing your artifact, not for
 		// retrieving dependencies.
+	}
+}
+
+publishMods {
+	file = jar.archiveFile
+	changelog = providers.fileContents(layout.projectDirectory.file("CHANGELOG.md")).asText.get()
+	type = STABLE
+	version = project.mod_version
+	modLoaders.add("fabric")
+	modLoaders.add("quilt")
+
+	curseforge {
+		displayName = file.map { it.asFile.name }
+		projectId = project.curseforge_id
+		accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
+		changelogType = "markdown"
+
+		minecraftVersionRange {
+			start = "26.1"
+			end = "26.1.2"
+		}
+
+		client = true
+		server = false
+		requires("fabric-api")
+	}
+
+	modrinth {
+		displayName = "${project.name} ${project.mod_version}"
+		projectId = project.modrinth_id
+		accessToken = providers.environmentVariable("MODRINTH_TOKEN")
+
+		minecraftVersionRange {
+			start = "26.1"
+			end = "26.1.2"
+		}
+
+		requires("fabric-api")
 	}
 }
