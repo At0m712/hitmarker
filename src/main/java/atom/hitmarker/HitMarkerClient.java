@@ -44,7 +44,7 @@ public class HitMarkerClient implements ClientModInitializer {
 
 
                     .then(ClientCommandManager.literal("Style")
-                            .then(ClientCommandManager.argument("type", IntegerArgumentType.integer(1, 3))
+                            .then(ClientCommandManager.argument("type", IntegerArgumentType.integer(1, 4))
                                     .executes(context -> {
                                         int style = IntegerArgumentType.getInteger(context, "type");
                                         ModConfig.crosshairStyle = style;

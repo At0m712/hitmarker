@@ -24,6 +24,7 @@ public abstract class GuiMixin {
     private static final ResourceLocation HIT_SPRITE_1 = ResourceLocation.fromNamespaceAndPath("hitmarker", "crosshair/hit1");
     private static final ResourceLocation HIT_SPRITE_2 = ResourceLocation.fromNamespaceAndPath("hitmarker", "crosshair/hit2");
     private static final ResourceLocation HIT_SPRITE_3 = ResourceLocation.fromNamespaceAndPath("hitmarker", "crosshair/hit3");
+    private static final ResourceLocation HIT_SPRITE_4 = ResourceLocation.fromNamespaceAndPath("hitmarker", "crosshair/hit4");
     private static final ResourceLocation CROSSHAIR_SPRITE = ResourceLocation.withDefaultNamespace("hud/crosshair");
 
     @Redirect(
@@ -40,6 +41,7 @@ public abstract class GuiMixin {
                 ResourceLocation spriteToUse = HIT_SPRITE_1;
                 if (ModConfig.crosshairStyle == 2) spriteToUse = HIT_SPRITE_2;
                 if (ModConfig.crosshairStyle == 3) spriteToUse = HIT_SPRITE_3;
+                if (ModConfig.crosshairStyle == 4) spriteToUse = HIT_SPRITE_4;
 
                 int color = HitMarkerClient.isKillIndicator ? 0xFFFF0000 : 0xFFFFFFFF;
 
