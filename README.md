@@ -7,7 +7,7 @@
 
 <br>
 
-![Video demonstration of the mod]()
+![Video demonstration of the mod](https://i.imgur.com/htYR3Nk.gif)
 
 <br> 
 
